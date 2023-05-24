@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
-    <title>Работа мечты!</title>
+    <title>Кинотека</title>
 </head>
 <body>
 <div class="container-fluid p-0">
@@ -18,34 +18,50 @@
             <a class="navbar-brand" href="/">Job4jCinema</a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav me-auto">
-                    <a class="nav-item nav-link active" href="/">Главная</a>
+                    <a class="nav-item nav-link" href="/">Главная</a>
                     <a class="nav-item nav-link" th:href="@{/schedule}">Расписание</a>
-                    <a class="nav-item nav-link" th:href="@{/library}">Кинотека</a>
+                    <a class="nav-item nav-link active" th:href="@{/library}">Кинотека</a>
                 </div>
             </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="row">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Название</th>
-                    <th scope="col">Год</th>
-                    <th scope="col">Минимальный возраст</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="film: ${films}">
-                    <td><a th:text="${film.name}" th:href="@{library/{filmId}(filmId=${film.id})}"></a></td>
-                    <td th:text="${film.year}" />
-                    <td th:text="${film.minimalAge}" />
-                </tr>
-                </tbody>
-            </table>
+    <div class="container" enctype="multipart/form-data">
+        <div class="row" th:each="film: ${films}">
+            <div class="row mb-3">
+                <div class="col-3">
+                    <div class="mb-3">
+                        <img th:src="@{/files/{fileId}(fileId=*{film.fileId})}" class="w-100" alt="No image">
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="mb-3">
+                        <h3 th:text="${film.name}" />
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-3">
+                            <div class="mb-3">
+                                <p>Год</p>
+                                <p>Жанр</p>
+                                <p>Минимальный возраст</p>
+                                <p>Продолжительность (мин)</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <p th:text="${film.year}" />
+                                <p th:text="${film.genre}" />
+                                <p th:text="${film.minimalAge}" />
+                                <p th:text="${film.durationInMinutes}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3" >
+                        <p th:text="${film.description}"/>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 </body>
-
 </html>

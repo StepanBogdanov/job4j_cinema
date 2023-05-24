@@ -10,5 +10,5 @@ insert into files(name, path) values('oblivion', 'files/oblivion.webp');
 insert into files(name, path) values('rocky', 'files/rocky.webp');
 insert into files(name, path) values('shutter_island', 'files/shutter_island.webp');
 insert into files(name, path) values('smurfs', 'files/smurfs.webp');
-insert into files(name, path) values('transformers', 'files/btransformers.webp');
+insert into files(name, path) values('transformers', 'files/transformers.webp');
 

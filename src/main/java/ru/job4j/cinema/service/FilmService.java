@@ -10,6 +10,6 @@ public interface FilmService {
 
     Optional<FilmDto> getFilmById(int id);
 
-    Collection<Film> findAll();
+    Collection<FilmDto> findAll();
 
 }

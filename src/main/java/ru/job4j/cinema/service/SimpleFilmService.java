@@ -8,6 +8,7 @@ import ru.job4j.cinema.repository.GenreRepository;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SimpleFilmService implements FilmService {
@@ -34,12 +35,24 @@ public class SimpleFilmService implements FilmService {
                 filmOptional.get().getYear(),
                 filmOptional.get().getMinimalAge(),
                 filmOptional.get().getDurationInMinutes(),
-                genreOptional.get().getName()
+                genreOptional.get().getName(),
+                filmOptional.get().getFileId()
         ));
     }
 
     @Override
-    public Collection<Film> findAll() {
-        return filmRepository.findAll();
+    public Collection<FilmDto> findAll() {
+        var films = filmRepository.findAll();
+        var filmsDto = films.stream().map(v -> new FilmDto(
+                v.getId(),
+                v.getName(),
+                v.getDescription(),
+                v.getYear(),
+                v.getMinimalAge(),
+                v.getDurationInMinutes(),
+                genreRepository.findById(v.getGenreId()).get().getName(),
+                v.getFileId()
+        )).collect(Collectors.toList());
+        return filmsDto;
     }
 }
