@@ -13,11 +13,9 @@ import ru.job4j.cinema.service.FilmService;
 public class LibraryController {
 
     private final FilmService filmService;
-    private final FileService fileService;
 
-    public LibraryController(FilmService filmService, FileService fileService) {
+    public LibraryController(FilmService filmService) {
         this.filmService = filmService;
-        this.fileService = fileService;
     }
 
     @GetMapping
