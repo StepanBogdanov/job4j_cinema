@@ -24,7 +24,8 @@ public class Sql2oFilmRepository implements FilmRepository {
             query.addParameter("id", id);
             var film = query.setColumnMappings(Film.COLUMN_MAPPING).executeAndFetchFirst(Film.class);
             return Optional.ofNullable(film);
-        }    }
+        }
+    }
 
     @Override
 

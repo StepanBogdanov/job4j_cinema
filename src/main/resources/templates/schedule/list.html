@@ -41,7 +41,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="filmSession: ${filmSessions}" th:if="${filmSession.hallName == hall.name}">
-                        <td th:text="${filmSession.filmName}" />
+                        <td><a th:text="${filmSession.filmName}" th:href="@{schedule/{filmSessionId}(filmSessionId=${filmSession.id})}" /></td>
                         <td th:text="${#temporals.format(filmSession.startTime, 'dd-MM-yyyy HH:mm')}" />
                         <td th:text="${#temporals.format(filmSession.endTime, 'dd-MM-yyyy HH:mm')}" />
                         <td th:text="${filmSession.price}" />
