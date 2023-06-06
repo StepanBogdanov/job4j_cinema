@@ -35,7 +35,8 @@ public class Sql2oUserRepository implements UserRepository {
         } catch (Exception e) {
             LOG.error("Registration error", e);
         }
-        return Optional.empty();    }
+        return Optional.empty();
+    }
 
     @Override
     public Optional<User> findByEmailAndPassword(String email, String password) {
@@ -54,5 +55,6 @@ public class Sql2oUserRepository implements UserRepository {
             var user = query.addParameter("email", email).setColumnMappings(User.COLUMN_MAPPING)
                     .executeAndFetchFirst(User.class);
             return Optional.ofNullable(user);
-        }    }
+        }
+    }
 }

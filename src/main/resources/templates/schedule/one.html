@@ -76,30 +76,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="rowNumber"><b>Ряд</b></label>
-                    <select class="form-control" id="rowNumber" name="rowNumber">
-                        <option th:each="rowNumber: ${#numbers.sequence(1,hall.rowCount)}" th:text="${rowNumber}" th:value="${rowNumber}"></option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="placeNumber"><b>Место</b></label>
-                    <select class="form-control" id="placeNumber" name="placeNumber">
-                        <option th:each="placeNumber: ${#numbers.sequence(1,hall.placeCount)}" th:text="${placeNumber}" th:value="${placeNumber}"></option>
-                    </select>
-                </div>
             </div>
         </div>
-        <div class="mb-3 row">
-            <div class="col-6"></div>
-            <div class="col-6">
-                <div class="row">
-                    <div class="col-6"><a class="btn btn-danger w-100" th:href="@{/schedule}">Отмена</a></div>
-                    <div class="col-6"><button class="btn btn-primary w-100" type="submit">Купить</button>
+        <form class="mt-3" th:object="${ticket}" th:action="@{/schedule/buy}" method="post">
+            <input type="hidden" th:value="${filmSession.id}" name="sessionId" />
+            <input type="hidden" th:value="${user.id}" name="userId" />
+            <div class="mb-3">
+                <label for="rowNumber"><b>Ряд</b></label>
+                <select class="form-control" id="rowNumber" name="rowNumber">
+                    <option th:each="rowNumber: ${#numbers.sequence(1,hall.rowCount)}" th:text="${rowNumber}" th:value="${rowNumber}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="placeNumber"><b>Место</b></label>
+                <select class="form-control" id="placeNumber" name="placeNumber">
+                    <option th:each="placeNumber: ${#numbers.sequence(1,hall.placeCount)}" th:text="${placeNumber}" th:value="${placeNumber}"></option>
+                </select>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-6"></div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-6"><a class="btn btn-danger w-100" th:href="@{/schedule}">Отмена</a></div>
+                        <div class="col-6"><button class="btn btn-primary w-100" type="submit">Купить</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 </div>
