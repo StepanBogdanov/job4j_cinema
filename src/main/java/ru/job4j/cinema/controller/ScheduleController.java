@@ -62,8 +62,8 @@ public class ScheduleController {
     @PostMapping("/buy")
     public String buyTicket(@ModelAttribute Ticket ticket, Model model) {
         if (ticketService.findByUniqueParameters(ticket.getSessionId(), ticket.getRowNumber(), ticket.getPlaceNumber()).isPresent()) {
-            model.addAttribute("message", "Не удалось приобрести билет на заданное место. " +
-                    "Вероятно оно уже занято. Перейдите на страницу бронирования билетов и попробуйте снова.");
+            model.addAttribute("message", "Не удалось приобрести билет на заданное место. "
+                    + "Вероятно оно уже занято. Перейдите на страницу бронирования билетов и попробуйте снова.");
             model.addAttribute("ticket", ticket);
             return "schedule/fail";
         }

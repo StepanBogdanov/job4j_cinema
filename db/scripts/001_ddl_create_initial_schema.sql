@@ -59,3 +59,20 @@ create table tickets
     user_id      int                               not null,
     unique (session_id, row_number, place_number)
 );
+
+create or replace function duration()
+    returns trigger as
+$$
+    BEGIN
+        update film_sessions
+        set end_time = start_time + (cast((select duration_in_minutes from films where id = film_sessions.film_id) AS varchar) || ' minutes')::interval;
+        return NEW;
+    END;
+$$
+LANGUAGE 'plpgsql';
+
+create trigger duration_trigger
+    after insert
+    on film_sessions
+    for each row
+    execute procedure duration();

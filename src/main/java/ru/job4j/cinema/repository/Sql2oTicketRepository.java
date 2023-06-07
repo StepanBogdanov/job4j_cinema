@@ -49,5 +49,6 @@ public class Sql2oTicketRepository implements TicketRepository {
                     .addParameter("placeNumber", placeNumber)
                     .setColumnMappings(Ticket.COLUMN_MAPPING).executeAndFetchFirst(Ticket.class);
             return Optional.ofNullable(ticket);
-        }    }
+        }
+    }
 }
