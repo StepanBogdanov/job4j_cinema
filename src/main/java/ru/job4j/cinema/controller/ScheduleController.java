@@ -53,11 +53,9 @@ public class ScheduleController {
             model.addAttribute("message", "Зал с указанным идентификатором не найден");
             return "errors/404";
         }
-        var user = (User) session.getAttribute("user");
         model.addAttribute("filmSession", filmSessionOptional.get());
         model.addAttribute("film", filmOptional.get());
         model.addAttribute("hall", hallOptional.get());
-        model.addAttribute("user", user);
         return "schedule/one";
     }
 
