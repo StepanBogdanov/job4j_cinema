@@ -11,4 +11,6 @@ public interface FilmRepository {
 
     Collection<Film> findAll();
 
+    Film save(Film film);
+
 }

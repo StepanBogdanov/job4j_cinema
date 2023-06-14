@@ -1,5 +1,6 @@
 package ru.job4j.cinema.service;
 
+import ru.job4j.cinema.dto.FileDto;
 import ru.job4j.cinema.dto.FilmDto;
 import ru.job4j.cinema.model.Film;
 
@@ -11,5 +12,7 @@ public interface FilmService {
     Optional<FilmDto> getFilmById(int id);
 
     Collection<FilmDto> findAll();
+
+    Film save(Film film, FileDto image);
 
 }

@@ -23,4 +23,16 @@ public class Sql2oFileRepository implements FileRepository {
             return Optional.ofNullable(file);
         }
     }
+
+    @Override
+    public File save(File file) {
+        try (var connection = sql2o.open()) {
+            var query = connection.createQuery("INSERT INTO files (name, path) VALUES (:name, :path)", true)
+                    .addParameter("name", file.getName())
+                    .addParameter("path", file.getPath());
+            int generatedId = query.executeUpdate().getKey(Integer.class);
+            file.setId(generatedId);
+            return file;
+        }
+    }
 }

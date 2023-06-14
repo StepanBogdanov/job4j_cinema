@@ -1,6 +1,7 @@
 package ru.job4j.cinema.service;
 
 import org.springframework.stereotype.Service;
+import ru.job4j.cinema.dto.FileDto;
 import ru.job4j.cinema.dto.FilmDto;
 import ru.job4j.cinema.model.Film;
 import ru.job4j.cinema.repository.FilmRepository;
@@ -15,10 +16,12 @@ public class SimpleFilmService implements FilmService {
 
     private final FilmRepository filmRepository;
     private final GenreRepository genreRepository;
+    private final FileService fileService;
 
-    public SimpleFilmService(FilmRepository filmRepository, GenreRepository genreRepository) {
+    public SimpleFilmService(FilmRepository filmRepository, GenreRepository genreRepository, FileService fileService) {
         this.filmRepository = filmRepository;
         this.genreRepository = genreRepository;
+        this.fileService = fileService;
     }
 
     @Override
@@ -54,5 +57,16 @@ public class SimpleFilmService implements FilmService {
                 v.getFileId()
         )).collect(Collectors.toList());
         return filmsDto;
+    }
+
+    @Override
+    public Film save(Film film, FileDto image) {
+        saveNewFile(film, image);
+        return filmRepository.save(film);
+    }
+
+    private void saveNewFile(Film film, FileDto image) {
+        var file = fileService.save(image);
+        film.setFileId(file.getId());
     }
 }

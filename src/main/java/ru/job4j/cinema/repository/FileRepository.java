@@ -8,4 +8,6 @@ public interface FileRepository {
 
     Optional<File> findById(int id);
 
+    File save(File file);
+
 }
