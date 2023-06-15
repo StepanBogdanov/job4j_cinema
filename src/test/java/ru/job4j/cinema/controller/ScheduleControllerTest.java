@@ -120,7 +120,7 @@ class ScheduleControllerTest {
 
     @Test
     public void whenBuyTicketOnFreePlaceThenGetSuccessPage() {
-        var ticket = new Ticket(1, 1, 1,1, 1);
+        var ticket = new Ticket(1, 1, 1, 1, 1);
         var ticketArgumentCaptor = ArgumentCaptor.forClass(Ticket.class);
         when(ticketService.findByUniqueParameters(anyInt(), anyInt(), anyInt())).thenReturn(Optional.empty());
         when(ticketService.save(ticketArgumentCaptor.capture())).thenReturn(Optional.of(ticket));

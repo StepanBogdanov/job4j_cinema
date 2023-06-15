@@ -7,6 +7,7 @@ import org.sql2o.Sql2o;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.model.User;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Repository
@@ -49,6 +50,24 @@ public class Sql2oTicketRepository implements TicketRepository {
                     .addParameter("placeNumber", placeNumber)
                     .setColumnMappings(Ticket.COLUMN_MAPPING).executeAndFetchFirst(Ticket.class);
             return Optional.ofNullable(ticket);
+        }
+    }
+
+    @Override
+    public Collection<Ticket> findAll() {
+        try (var connection = sql2o.open()) {
+            var query = connection.createQuery("SELECT * FROM tickets");
+            return query.setColumnMappings(Ticket.COLUMN_MAPPING).executeAndFetch(Ticket.class);
+        }
+    }
+
+    @Override
+    public boolean deleteById(int id) {
+        try (var connection = sql2o.open()) {
+            var query = connection.createQuery("DELETE FROM tickets WHERE id = :id");
+            query.addParameter("id", id);
+            var affectedRows = query.executeUpdate().getResult();
+            return affectedRows > 0;
         }
     }
 }
