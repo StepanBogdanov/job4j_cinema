@@ -46,15 +46,15 @@ class Sql2oUserRepositoryTest {
 
     @Test
     public void whenSaveThenGetSame() {
-        var user = sql2oUserRepository.save(new User(0, "mail", "name", "password")).get();
+        var user = sql2oUserRepository.save(new User(0, "name", "mail", "password")).get();
         var savedUser = sql2oUserRepository.findByEmailAndPassword(user.getEmail(), user.getPassword()).get();
         assertThat(savedUser).usingRecursiveComparison().isEqualTo(user);
     }
 
     @Test
     public void whenSaveWithExistingEmail() {
-        sql2oUserRepository.save(new User(0, "mail", "name1", "password1"));
-        var savedUser = sql2oUserRepository.save(new User(0, "mail", "name2", "password2"));
+        sql2oUserRepository.save(new User(0, "name1", "mail", "password1"));
+        var savedUser = sql2oUserRepository.save(new User(0, "name2", "mail", "password2"));
         assertThat(savedUser).isEmpty();
     }
 

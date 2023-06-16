@@ -71,7 +71,7 @@ class Sql2oTicketRepositoryTest {
     public void whenDeleteThenGetEmptyOptional() {
         var ticket = sql2oTicketRepository.save(new Ticket(1, 1, 1, 1, 1)).get();
         var isDeleted = sql2oTicketRepository.deleteById(ticket.getId());
-        var savedTicket = sql2oTicketRepository.findByUniqueParameters(1, 1, 1).get();
+        var savedTicket = sql2oTicketRepository.findByUniqueParameters(1, 1, 1);
         assertThat(isDeleted).isTrue();
         assertThat(savedTicket).isEqualTo(empty());
     }
