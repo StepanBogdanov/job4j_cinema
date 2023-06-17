@@ -60,13 +60,12 @@ public class ScheduleController {
 
     @PostMapping("/buy")
     public String buyTicket(@ModelAttribute Ticket ticket, Model model) {
-        if (ticketService.findByUniqueParameters(ticket.getSessionId(), ticket.getRowNumber(), ticket.getPlaceNumber()).isPresent()) {
+        if (ticketService.save(ticket).isEmpty()) {
             model.addAttribute("message", "Не удалось приобрести билет на заданное место. "
                     + "Вероятно оно уже занято. Перейдите на страницу бронирования билетов и попробуйте снова.");
             model.addAttribute("ticket", ticket);
             return "schedule/fail";
         }
-        ticketService.save(ticket);
         String success = String.format("Вы успешно приобрели билет на место %d-%d", ticket.getRowNumber(), ticket.getPlaceNumber());
         model.addAttribute("message", success);
         return "schedule/success";

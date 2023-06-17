@@ -29,11 +29,10 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute User user, Model model) {
-        if (userService.findUserByEmail(user.getEmail()).isPresent()) {
+        if (userService.save(user).isEmpty()) {
             model.addAttribute("message", "Пользователь с такой почтой уже существует");
             return "errors/404";
         }
-        userService.save(user);
         return "redirect:/schedule";
     }
 
